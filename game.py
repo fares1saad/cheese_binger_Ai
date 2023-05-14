@@ -5,6 +5,9 @@ import random
 # GAME LINK
 # http://kevinshannon.com/connect4/
 
+#fares add da as a test
+
+
 
 def main():
     board = Board()
