@@ -6,6 +6,11 @@ import random
 # http://kevinshannon.com/connect4/
 
 
+
+def MinMax(game_board):
+    fes =1+1
+
+
 def main():
     board = Board()
 
