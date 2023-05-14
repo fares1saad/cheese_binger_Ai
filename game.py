@@ -7,7 +7,7 @@ import math
 # http://kevinshannon.com/connect4/
 
 EMPTY = 0
-
+x = 69
 
 def is_all_full(lst):
     return all(x != EMPTY for x in lst)
