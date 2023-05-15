@@ -119,7 +119,7 @@ def playable_places(board):
     return valid_locations
 
 
-def minimax(board, difficulty, maximize):
+def minimax(board, depth, maximize):
     # Where ("difficulty" is the depth the Ai can reach) and ("maximize" is
     # the decision of whether to maximize the score or minimize it)
 
@@ -128,7 +128,7 @@ def minimax(board, difficulty, maximize):
     is_terminal = True if winning_move(board, PLAYER_PIECE) or winning_move(board, AI_PIECE) or is_board_full(
         board) else False
 
-    if difficulty == 0 or is_terminal:
+    if depth == 0 or is_terminal:
         if is_terminal:
             if winning_move(board, AI_PIECE):
                 return None, 1000000
@@ -149,7 +149,7 @@ def minimax(board, difficulty, maximize):
 
             b_copy = board.copy()
             b_copy[row][col] = AI_PIECE
-            new_score = minimax(b_copy, difficulty - 1, False)[1]
+            new_score = minimax(b_copy, depth - 1, False)[1]
 
             if new_score > value:
                 value = new_score
@@ -164,7 +164,7 @@ def minimax(board, difficulty, maximize):
 
             b_copy = board.copy()
             b_copy[row][col] = PLAYER_PIECE  # simulate the action of playing the piece
-            new_score = minimax(b_copy, difficulty - 1, True)[1]
+            new_score = minimax(b_copy, depth - 1, True)[1]
 
             if new_score < value:
                 value = new_score
@@ -182,25 +182,30 @@ def free_row(board, col):
 def main():
     board = Board()
 
+    difficulty = 4
+
     time.sleep(2)
     game_end = False
+
     while not game_end:
+
         (game_board, game_end) = board.get_game_grid()
 
         # FOR DEBUG PURPOSES
         board.print_grid(game_board)
 
         # YOUR CODE GOES HERE
-        # arr = np.array(game_board)
 
+        # arr = np.array(game_board)
         # score = score_position(arr, 1)
+
+        random_column, temp_score = minimax(game_board, difficulty, True)  # minimax :)
+        board.select_column(random_column)
+
         print(game_board)
 
         # Insert here the action you want to perform based on the output of the algorithm
         # You can use the following function to select a column
-        random_column = random.randint(0, 6)
-
-        board.select_column(random_column)
 
         time.sleep(2)
 
