@@ -85,13 +85,10 @@ class Board:
         new_grid = self._convert_grid_to_color(game_grid)
         is_game_end = self._check_if_game_end(new_grid)
         self.board = new_grid
-        return (self.board, is_game_end)
+        return self.board, is_game_end
 
     def select_column(self, column):
         pyautogui.click(
             self._get_grid_cordinates()[column][1] + LEFT,
             self._get_grid_cordinates()[column][0] + TOP,
         )
-
-    def gitHubTest(self):
-        x = 666
