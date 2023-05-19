@@ -204,9 +204,6 @@ def minimax_alpha(board, depth, alpha, beta, maximize):
         return column, value
 
 def minimax(board, depth, maximize):
-    # Where ("difficulty" is the depth the Ai can reach) and ("maximize" is
-    # the decision of whether to maximize the score or minimize it)
-
     valid_locations = playable_places(board)
 
     is_terminal = True if winning_move(board, PLAYER_PIECE) or winning_move(board, AI_PIECE) or is_board_full(
@@ -218,16 +215,14 @@ def minimax(board, depth, maximize):
                 return None, 1000000
             elif winning_move(board, PLAYER_PIECE):
                 return None, -1000000
-            else:  # Game is over, no more valid moves
+            else:
                 return None, 0
-        else:  # Depth is zero
+        else:
             return None, score_position(board, AI_PIECE)
 
-    if maximize:  # Maximize the goal score
-
-        value = -math.inf  # initialize to a very small value
+    if maximize:
+        value = -math.inf
         column = random.choice(valid_locations)
-
         for col in valid_locations:
             row = free_row(board, col)
 
@@ -238,16 +233,17 @@ def minimax(board, depth, maximize):
             if new_score > value:
                 value = new_score
                 column = col
+
         return column, value
 
-    else:  # Minimize the goal score
+    else:
         value = math.inf
         column = random.choice(valid_locations)
         for col in valid_locations:
             row = free_row(board, col)
 
             b_copy = board.copy()
-            b_copy[row][col] = PLAYER_PIECE  # simulate the action of playing the piece
+            b_copy[row][col] = PLAYER_PIECE
             new_score = minimax(b_copy, depth - 1, True)[1]
 
             if new_score < value:
